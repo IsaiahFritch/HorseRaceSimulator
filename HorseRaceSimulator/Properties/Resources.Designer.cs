@@ -123,6 +123,56 @@ namespace HorseRaceSimulator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HRSgameScreenBackground {
+            get {
+                object obj = ResourceManager.GetObject("HRSgameScreenBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HRSgameScreenForeground {
+            get {
+                object obj = ResourceManager.GetObject("HRSgameScreenForeground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HRSgameScreenMidground {
+            get {
+                object obj = ResourceManager.GetObject("HRSgameScreenMidground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HRSgameScreenRaceTrack {
+            get {
+                object obj = ResourceManager.GetObject("HRSgameScreenRaceTrack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HRShorseOneImage {
+            get {
+                object obj = ResourceManager.GetObject("HRShorseOneImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HRSleaveGameButton {
             get {
                 object obj = ResourceManager.GetObject("HRSleaveGameButton", resourceCulture);

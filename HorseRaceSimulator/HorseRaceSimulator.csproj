@@ -58,6 +58,7 @@
     <Compile Include="GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Horse.cs" />
     <Compile Include="MenuScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +155,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\HRSbetsButton.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSgameScreenBackground.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSgameScreenForeground.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSgameScreenMidground.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSgameScreenRaceTrack.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRShorseOneImage.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

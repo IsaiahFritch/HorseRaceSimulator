@@ -13,8 +13,11 @@ namespace HorseRaceSimulator
     public partial class Form1 : Form
     {
         // Global Variables
+        // random
+        public static Random ranGen = new Random();
+
         // create all images
-        #region background images
+        #region menu background images
         public static Image backgroundImageOne = Properties.Resources.HRSbackground1;
         public static Image backgroundImageTwo = Properties.Resources.HRSbackground2;
         public static Image backgroundImageThree = Properties.Resources.HRSbackground3;
@@ -38,6 +41,16 @@ namespace HorseRaceSimulator
         public static Image stealImageCURRENT = Properties.Resources.HRSstealButton;
         public static Image stealImage = Properties.Resources.HRSstealButton;
         public static Image stealImageHover = Properties.Resources.HRSstealButtonHover;
+        #endregion
+
+        #region game background images
+        public static Image gameScreenRaceTrackImage = Properties.Resources.HRSgameScreenRaceTrack;
+        public static Image gameScreenBackgroundImage = Properties.Resources.HRSgameScreenBackground;
+        public static Image gameScreenMidgroundImage = Properties.Resources.HRSgameScreenMidground;
+        public static Image gameScreenForegroundImage = Properties.Resources.HRSgameScreenForeground;
+        #endregion
+        #region game images
+        public static Image raceHorseImage = Properties.Resources.HRShorseOneImage;
         #endregion
 
         public Form1()
