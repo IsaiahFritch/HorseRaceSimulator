@@ -46,7 +46,9 @@ namespace HorseRaceSimulator
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(Form1.gameScreenRaceTrackImage, 0, 0, 1920, 1080);
+
             //HAVE TOP HALF OF CHEERING AUDIENCE HERE (view face)
+
             e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
             e.Graphics.DrawImage(Form1.gameScreenMidgroundImage, 0, 0, 1920, 1080);
 
