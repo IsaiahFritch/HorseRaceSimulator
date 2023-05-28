@@ -8,10 +8,11 @@ namespace HorseRaceSimulator
 {
     internal class Horse
     {
-        public int x, y, rotation, horseNumber, yMin, yMax, acceleration;
+        public int x, y, horseNumber, yMin, yMax, acceleration, yWiggle, horsePlace;
         public int width = 451, height = 219;
         bool accCheckOne = false, accCheckTwo = false, accCheckThree = false; 
         bool horseInLast = false;
+        public double rotation;
 
         public Horse(int horseNumber_)
         {
@@ -46,32 +47,27 @@ namespace HorseRaceSimulator
 
         public void Move()
         {
-            //IDEAS:
-            // If the number = some value, have the horse perform a larger jump in distance.
-            // Acceleration?
-            // Roatation code
-
             // X movement
             #region X movement
-            // assign acceleration
+            // set acceleration
             if (accCheckOne == false)
             {
                 accCheckOne = true;
                 acceleration = Form1.ranGen.Next(1, 3); //1, 2
             }
-            else if (x >= 400 && accCheckTwo == false)
+            else if (x >= 500 && accCheckTwo == false)
             {
                 accCheckTwo = true;
-                acceleration = Form1.ranGen.Next(2, 5); //2, 3, 4
+                acceleration = Form1.ranGen.Next(1, 5); //2, 3, 4
             }
-            else if (x >= 700 && accCheckThree == false)  //  || x >= 800 && horseInLast == true  TO DO: GIVE LAST HORSE A BOOST
+            else if (x >= 1000 && accCheckThree == false)  //  || x >= 800 && horseInLast == true  TO DO: GIVE LAST HORSE A BOOST
             {
                 accCheckThree = true;
-                acceleration = Form1.ranGen.Next(3, 6); //3, 4, 5
+                acceleration = Form1.ranGen.Next(1, 6); //3, 4, 5
                 //if (horseInLast == true) { acceleration++;}   TO DO: GIVE LAST HORSE A BOOST
             }
 
-            // set speeds
+            // set speed
             switch (acceleration)
             {
                 case 1:
@@ -93,6 +89,12 @@ namespace HorseRaceSimulator
                     x += Form1.ranGen.Next(9, 12);
                     break;
             }
+
+            // random leaps forward
+            if (Form1.ranGen.Next(1,30) == 1)
+            {
+                x += 50;
+            }
             #endregion
 
             // Wiggle the horses up and down (visual only, no effect on game)
@@ -100,7 +102,8 @@ namespace HorseRaceSimulator
             // up down movement
             if (y > yMin && y < yMax)
             {
-                y += Form1.ranGen.Next(-5, 6);
+                yWiggle = Form1.ranGen.Next(-5, 6);
+                y += yWiggle;
             }
 
             // fixing the horses when the get stuck
@@ -108,8 +111,53 @@ namespace HorseRaceSimulator
             else if (y >= yMax) {y -= 15;}
 
             //assign rotation
-            //TODO: check how high or low the horse wiggled, then turn the horse accordingly using a case statement
+            //TODO: then turn the horse accordingly using a case statement
+            switch (yWiggle)
+            {
+                case -5:
+                    rotation = -2.5;
+                    break;
+                case -4:
+                    rotation = -2;
+                    break;
+                case -3:
+                    rotation = -1.5;
+                    break;
+                case -2:
+                    rotation = -1;
+                    break;
+                case -1:
+                    rotation = -0.5;
+                    break;
+                case 0:
+                    rotation = 0;
+                    break;
+                case 1:
+                    rotation = 0.5;
+                    break;
+                case 2:
+                    rotation = 1;
+                    break;
+                case 3:
+                    rotation = 1.5;
+                    break;
+                case 4:
+                    rotation = 2;
+                    break;
+                case 5:
+                    rotation = 2.5;
+                    break;
+            }
             #endregion
+        }
+
+        public bool DidHorseWin()
+        {
+            if (x + width > 1620)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

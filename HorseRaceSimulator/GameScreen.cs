@@ -15,6 +15,17 @@ namespace HorseRaceSimulator
         // Global variables
         List<Horse> horses = new List<Horse>();
 
+        // TODO: test if it's more efficent to paint using two lists that know what to image to draw, or one list that checks for the image in the class
+        List<Attendee> audienceTop = new List<Attendee>();
+        List<Attendee> audienceBottom = new List<Attendee>();
+        //TODO: change the brush array into an image array to display the drawings
+        SolidBrush[] audienceAppearance = new SolidBrush[] { new SolidBrush(Color.White), new SolidBrush(Color.LightGray), new SolidBrush(Color.Gray), new SolidBrush(Color.DarkGray) };
+
+        int winner  = 0;
+        int endTimer = 0;
+
+        Brush whiteBrush = new SolidBrush(Color.White);
+
         public GameScreen()
         {
             InitializeComponent();
@@ -30,14 +41,69 @@ namespace HorseRaceSimulator
             horses.Add(horseTwo);
             Horse horseThree = new Horse(3);
             horses.Add(horseThree);
+
+            // set up audience
+            for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
+            {
+                Attendee topAttendee = new Attendee("top");
+                audienceTop.Add(topAttendee);
+            }
+            for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
+            {
+                Attendee bottomAttendee = new Attendee("bottom");
+                audienceBottom.Add(bottomAttendee);
+            }
+            // order audience from furthest into background to closest to foreground
+            audienceTop = audienceTop.OrderBy(o => o.y).ToList();
+            audienceBottom = audienceBottom.OrderBy(o => o.y).ToList();
+            #region Note for Mr. T
+            // https://stackoverflow.com/questions/57371442/how-to-sort-listt-in-c-sharp
+            // the two lines of sorting code were found from this website above.
+            #endregion
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            // Move horses
+            // Horse actions
             foreach (Horse h in horses)
             {
+                // move horses
                 h.Move();
+
+                // end game if a horse won
+                if (h.DidHorseWin() == true && winner == 0)
+                {
+                    winner = h.horseNumber;
+                }
+            }
+
+            // Audience actions
+            foreach (Attendee a in audienceTop)
+            {
+                // move audience
+                a.Move();
+            }
+            foreach (Attendee a in audienceBottom)
+            {
+                // move audience
+                a.Move();
+            }
+
+            // End game
+            // update counter
+            if (winner != 0)
+            {
+                endTimer++;
+            }
+
+            // end game
+            if (endTimer == 100)
+            {
+                //TODO SEND WINNER INFORMATION TO WINNING SCREEN
+                //RIGHT NOW, JUST RETURN TO MENU
+
+                // Launch Main Screen
+                Form1.ChangeScreen(this, new MenuScreen());
             }
 
             Refresh();
@@ -48,6 +114,10 @@ namespace HorseRaceSimulator
             e.Graphics.DrawImage(Form1.gameScreenRaceTrackImage, 0, 0, 1920, 1080);
 
             //HAVE TOP HALF OF CHEERING AUDIENCE HERE (view face)
+            foreach (Attendee a in audienceTop)
+            {
+                e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
+            }
 
             e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
             e.Graphics.DrawImage(Form1.gameScreenMidgroundImage, 0, 0, 1920, 1080);
@@ -55,11 +125,20 @@ namespace HorseRaceSimulator
             //HAVE HORSES PAINTED HERE
             foreach (Horse h in horses)
             {
-                e.Graphics.DrawImage(Form1.raceHorseImage, h.x, h.y, h.width, h.height);
+                //TODO Still draws from origin for some reason, fix that
+                e.Graphics.TranslateTransform(h.x, h.y + h.width);
+                e.Graphics.RotateTransform((float)h.rotation);
+                e.Graphics.DrawImage(Form1.raceHorseImage, 0, 0 - h.width, h.width, h.height);
+                e.Graphics.ResetTransform();
             }
 
             e.Graphics.DrawImage(Form1.gameScreenForegroundImage, 0, 0, 1920, 1080);
+
             //HAVE BOTTOM HALF OF CHEERING CROWD HERE (view back of head)
+            foreach (Attendee a in audienceBottom)
+            {
+                e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
+            }
         }
     }
 }
