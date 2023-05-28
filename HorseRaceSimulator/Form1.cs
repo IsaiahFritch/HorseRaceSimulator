@@ -16,6 +16,10 @@ namespace HorseRaceSimulator
         // random
         public static Random ranGen = new Random();
 
+        // variables for horse reduction
+        public static bool horseOneInjured = false, horseTwoInjured = false, horseThreeInjured = false;
+        public static bool horseOneActive = true, horseTwoActive = true, horseThreeActive = true;
+
         // create all images
         #region menu background images
         public static Image backgroundImageOne = Properties.Resources.HRSbackground1;

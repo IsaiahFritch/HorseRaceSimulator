@@ -14,6 +14,7 @@ namespace HorseRaceSimulator
     {
         // Global variables
         List<Horse> horses = new List<Horse>();
+        List<Bottle> bottles = new List<Bottle>();
 
         // TODO: test if it's more efficent to paint using two lists that know what to image to draw, or one list that checks for the image in the class
         List<Attendee> audienceTop = new List<Attendee>();
@@ -34,13 +35,13 @@ namespace HorseRaceSimulator
 
         public void SetInitialConditions()
         {
-            // set up horses
-            Horse horseOne = new Horse(1);
-            horses.Add(horseOne);
-            Horse horseTwo = new Horse(2);
-            horses.Add(horseTwo);
-            Horse horseThree = new Horse(3);
-            horses.Add(horseThree);
+            // set up horses - check if they are active and add them
+            if (Form1.horseOneActive == true && Form1.horseOneInjured == false) 
+            {Horse horseOne = new Horse(1); horses.Add(horseOne);}
+            if (Form1.horseTwoActive == true && Form1.horseTwoInjured == false)
+            { Horse horseTwo = new Horse(2); horses.Add(horseTwo);}
+            if (Form1.horseThreeActive == true && Form1.horseThreeInjured == false)
+            { Horse horseThree = new Horse(3); horses.Add(horseThree);}
 
             // set up audience
             for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
@@ -82,11 +83,47 @@ namespace HorseRaceSimulator
             {
                 // move audience
                 a.Move();
+
+                // throw bottle
+                if (a.ThrowBottle() == true)
+                {
+                    // select a horse
+                    Horse h = horses[Form1.ranGen.Next(0,3)];
+
+                    // create bottle
+                    Bottle newBottle = new Bottle(a.x + a.width/2, a.y + a.height/2, h.x + h.width/2, h.y + h.height/2); 
+                    bottles.Add(newBottle); 
+                }
             }
             foreach (Attendee a in audienceBottom)
             {
                 // move audience
                 a.Move();
+
+                // throw bottle
+                if (a.ThrowBottle() == true)
+                {
+                    // select a horse
+                    Horse h = horses[Form1.ranGen.Next(0, 3)];
+
+                    // create bottle
+                    Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
+                    bottles.Add(newBottle);
+                }
+            }
+
+            // Bottle actions
+            foreach (Bottle b in bottles)
+            {
+                // move the bottle
+                b.Move();
+
+                // remove bottles
+                if (b.lifecycle <= 0)
+                {
+                    bottles.Remove(b);
+                    break;
+                }
             }
 
             // End game
@@ -112,6 +149,7 @@ namespace HorseRaceSimulator
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(Form1.gameScreenRaceTrackImage, 0, 0, 1920, 1080);
+            e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
 
             //HAVE TOP HALF OF CHEERING AUDIENCE HERE (view face)
             foreach (Attendee a in audienceTop)
@@ -119,13 +157,11 @@ namespace HorseRaceSimulator
                 e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
             }
 
-            e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
             e.Graphics.DrawImage(Form1.gameScreenMidgroundImage, 0, 0, 1920, 1080);
 
             //HAVE HORSES PAINTED HERE
             foreach (Horse h in horses)
             {
-                //TODO Still draws from origin for some reason, fix that
                 e.Graphics.TranslateTransform(h.x, h.y + h.width);
                 e.Graphics.RotateTransform((float)h.rotation);
                 e.Graphics.DrawImage(Form1.raceHorseImage, 0, 0 - h.width, h.width, h.height);
@@ -138,6 +174,14 @@ namespace HorseRaceSimulator
             foreach (Attendee a in audienceBottom)
             {
                 e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
+            }
+
+            foreach (Bottle b in bottles)
+            {
+                e.Graphics.TranslateTransform((float)b.x + (float)b.width/2, (float)b.y + (float)b.height/2);
+                e.Graphics.RotateTransform((float)b.rotation);
+                e.Graphics.FillRectangle(whiteBrush, - (float)b.width/2, - (float)b.height/2, (float)b.width, (float)b.height);
+                e.Graphics.ResetTransform();
             }
         }
     }

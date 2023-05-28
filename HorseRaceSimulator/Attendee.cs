@@ -25,7 +25,7 @@ namespace HorseRaceSimulator
                     y = Form1.ranGen.Next(-50, 180 - height);
                     break;
                 case "bottom":
-                    y = Form1.ranGen.Next(1020 - height, 1055);
+                    y = Form1.ranGen.Next(1025 - height, 1055);
                     break;
             }
 
@@ -66,6 +66,17 @@ namespace HorseRaceSimulator
                     maxHeight = false;
                 }
             }
+        }
+
+        public bool ThrowBottle()
+        {
+            // Random chance to throw a bottle at a horse
+            // should a bottle be thrown
+            if (Form1.ranGen.Next(1,100) == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

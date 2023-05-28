@@ -71,22 +71,22 @@ namespace HorseRaceSimulator
             switch (acceleration)
             {
                 case 1:
-                    x += Form1.ranGen.Next(3, 5);
+                    x += Form1.ranGen.Next(5, 6);
                     break;
                 case 2:
-                    x += Form1.ranGen.Next(4, 6);
-                    break;
-                case 3:
-                    x += Form1.ranGen.Next(5, 7);
-                    break;
-                case 4:
                     x += Form1.ranGen.Next(6, 8);
                     break;
-                case 5:
+                case 3:
                     x += Form1.ranGen.Next(7, 9);
                     break;
-                case 6:
+                case 4:
+                    x += Form1.ranGen.Next(8, 10);
+                    break;
+                case 5:
                     x += Form1.ranGen.Next(9, 12);
+                    break;
+                case 6:
+                    x += Form1.ranGen.Next(10, 14);
                     break;
             }
 
