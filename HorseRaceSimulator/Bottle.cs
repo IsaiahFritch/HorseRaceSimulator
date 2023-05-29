@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace HorseRaceSimulator
 {
@@ -138,6 +139,21 @@ namespace HorseRaceSimulator
 
             // remove the bottle as it passes or hits the horse
             lifecycle--;
+        }
+
+        public bool Collision(Horse h)
+        {
+            // create rectangles
+            Rectangle horseRec = new Rectangle(h.x + h.width/2, h.y, h.width/2, h.height);  // ignore the horse tails
+            Rectangle bottleRec = new Rectangle((int)x, (int)y, (int)width, (int)height);
+
+            // check if the rectangles are overlapping and that the lifecycle is low
+            if (horseRec.IntersectsWith(bottleRec) == true && lifecycle < 2)
+            {
+                lifecycle = 0;   // remove bottle
+                return true;
+            }
+            return false;
         }
     }
 }

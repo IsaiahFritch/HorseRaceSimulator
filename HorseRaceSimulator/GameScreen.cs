@@ -61,6 +61,11 @@ namespace HorseRaceSimulator
             // https://stackoverflow.com/questions/57371442/how-to-sort-listt-in-c-sharp
             // the two lines of sorting code were found from this website above.
             #endregion
+
+            // heal horses
+            Form1.horseOneInjured = false;
+            Form1.horseTwoInjured = false;
+            Form1.horseThreeInjured = false;
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -69,7 +74,9 @@ namespace HorseRaceSimulator
             foreach (Horse h in horses)
             {
                 // move horses
-                h.Move();
+                if (Form1.horseOneInjured == false && h.horseNumber == 1) {h.Move();}
+                else if (Form1.horseTwoInjured == false && h.horseNumber == 2) {h.Move();}
+                else if (Form1.horseThreeInjured == false && h.horseNumber == 3) {h.Move();}
 
                 // end game if a horse won
                 if (h.DidHorseWin() == true && winner == 0)
@@ -81,18 +88,24 @@ namespace HorseRaceSimulator
             // Audience actions
             foreach (Attendee a in audienceTop)
             {
-                // move audience
-                a.Move();
-
-                // throw bottle
-                if (a.ThrowBottle() == true)
                 {
-                    // select a horse
-                    Horse h = horses[Form1.ranGen.Next(0,3)];
+                    // move audience
+                    a.Move();
 
-                    // create bottle
-                    Bottle newBottle = new Bottle(a.x + a.width/2, a.y + a.height/2, h.x + h.width/2, h.y + h.height/2); 
-                    bottles.Add(newBottle); 
+                    // throw bottle
+                    if (a.ThrowBottle() == true)
+                    {
+                        // select a horse
+                        try // do nothing if the horse is already gone
+                        {
+                            Horse h = horses[Form1.ranGen.Next(0, 3)];
+
+                            // create bottle
+                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
+                            bottles.Add(newBottle);
+                        }
+                        catch { }
+                    }
                 }
             }
             foreach (Attendee a in audienceBottom)
@@ -104,11 +117,15 @@ namespace HorseRaceSimulator
                 if (a.ThrowBottle() == true)
                 {
                     // select a horse
-                    Horse h = horses[Form1.ranGen.Next(0, 3)];
+                    try // do nothing if the horse is already gone
+                    {
+                        Horse h = horses[Form1.ranGen.Next(0, 3)];
 
-                    // create bottle
-                    Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
-                    bottles.Add(newBottle);
+                        // create bottle
+                        Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
+                        bottles.Add(newBottle);
+                    }
+                    catch { }
                 }
             }
 
@@ -117,6 +134,17 @@ namespace HorseRaceSimulator
             {
                 // move the bottle
                 b.Move();
+
+                // hit horses with bottle
+                foreach (Horse h in horses)
+                {
+                    if (b.Collision(h) == true)
+                    {
+                        if (h.horseNumber == 1) {Form1.horseOneInjured = true;}
+                        else if (h.horseNumber == 2) {Form1.horseTwoInjured = true;}
+                        else {Form1.horseThreeInjured = true;}
+                    }
+                }
 
                 // remove bottles
                 if (b.lifecycle <= 0)

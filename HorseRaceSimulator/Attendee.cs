@@ -72,7 +72,7 @@ namespace HorseRaceSimulator
         {
             // Random chance to throw a bottle at a horse
             // should a bottle be thrown
-            if (Form1.ranGen.Next(1,10000) == 1)
+            if (Form1.ranGen.Next(1,1000) == 1) //10000
             {
                 #region note 
                 // 1/1000 is about 2 bottles per game, so 1/2000 should be about 1 bottle per game. 
