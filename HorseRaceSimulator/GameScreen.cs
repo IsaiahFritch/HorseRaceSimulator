@@ -148,18 +148,19 @@ namespace HorseRaceSimulator
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            // draw background
             e.Graphics.DrawImage(Form1.gameScreenRaceTrackImage, 0, 0, 1920, 1080);
             e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
 
-            //HAVE TOP HALF OF CHEERING AUDIENCE HERE (view face)
+            // draw top of audience (view face)
             foreach (Attendee a in audienceTop)
             {
-                e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
+                e.Graphics.DrawImage(Form1.attendeeOneFrontImage, a.x, a.y, a.width, a.height);
             }
 
             e.Graphics.DrawImage(Form1.gameScreenMidgroundImage, 0, 0, 1920, 1080);
 
-            //HAVE HORSES PAINTED HERE
+            // draw horses
             foreach (Horse h in horses)
             {
                 e.Graphics.TranslateTransform(h.x, h.y + h.width);
@@ -170,18 +171,19 @@ namespace HorseRaceSimulator
 
             e.Graphics.DrawImage(Form1.gameScreenForegroundImage, 0, 0, 1920, 1080);
 
-            //HAVE BOTTOM HALF OF CHEERING CROWD HERE (view back of head)
-            foreach (Attendee a in audienceBottom)
-            {
-                e.Graphics.FillRectangle(audienceAppearance[a.appearance], a.x, a.y, a.width, a.height);
-            }
-
+            // draw bottles
             foreach (Bottle b in bottles)
             {
-                e.Graphics.TranslateTransform((float)b.x + (float)b.width/2, (float)b.y + (float)b.height/2);
+                e.Graphics.TranslateTransform((float)b.x + (float)b.width / 2, (float)b.y + (float)b.height / 2);
                 e.Graphics.RotateTransform((float)b.rotation);
-                e.Graphics.DrawImage(Form1.bottleImage, - (float)b.width/2, - (float)b.height/2, (float)b.width, (float)b.height);
+                e.Graphics.DrawImage(Form1.bottleImage, -(float)b.width / 2, -(float)b.height / 2, (float)b.width, (float)b.height);
                 e.Graphics.ResetTransform();
+            }
+
+            // draw bottom of audience (view back of head)
+            foreach (Attendee a in audienceBottom)
+            {
+                e.Graphics.DrawImage(Form1.attendeeOneBackImage, a.x, a.y, a.width, a.height);
             }
         }
     }

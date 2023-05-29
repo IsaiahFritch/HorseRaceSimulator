@@ -176,5 +176,11 @@
   <ItemGroup>
     <None Include="Resources\HRSbottle.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSattendeeOne.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSattendeeOneBack.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@ namespace HorseRaceSimulator
 {
     internal class Attendee
     {
-        public int x, y, width = 75, height = 150;
+        public int x, y, width = 113, height = 225;
         int maxJumpHeight, minimumHeight;
         bool jumping = false, maxHeight = false;
         public int appearance;
@@ -25,7 +25,7 @@ namespace HorseRaceSimulator
                     y = Form1.ranGen.Next(-50, 180 - height);
                     break;
                 case "bottom":
-                    y = Form1.ranGen.Next(1025 - height, 1055);
+                    y = Form1.ranGen.Next(1028 - height, 1055);
                     break;
             }
 
