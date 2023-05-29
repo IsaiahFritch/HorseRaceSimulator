@@ -123,6 +123,16 @@ namespace HorseRaceSimulator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HRSbottle {
+            get {
+                object obj = ResourceManager.GetObject("HRSbottle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HRSgameScreenBackground {
             get {
                 object obj = ResourceManager.GetObject("HRSgameScreenBackground", resourceCulture);

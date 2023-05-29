@@ -173,5 +173,8 @@
   <ItemGroup>
     <None Include="Resources\HRShorseOneImage.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HRSbottle.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

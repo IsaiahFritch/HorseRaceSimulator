@@ -55,6 +55,7 @@ namespace HorseRaceSimulator
         #endregion
         #region game images
         public static Image raceHorseImage = Properties.Resources.HRShorseOneImage;
+        public static Image bottleImage = Properties.Resources.HRSbottle;
         #endregion
 
         public Form1()

@@ -180,7 +180,7 @@ namespace HorseRaceSimulator
             {
                 e.Graphics.TranslateTransform((float)b.x + (float)b.width/2, (float)b.y + (float)b.height/2);
                 e.Graphics.RotateTransform((float)b.rotation);
-                e.Graphics.FillRectangle(whiteBrush, - (float)b.width/2, - (float)b.height/2, (float)b.width, (float)b.height);
+                e.Graphics.DrawImage(Form1.bottleImage, - (float)b.width/2, - (float)b.height/2, (float)b.width, (float)b.height);
                 e.Graphics.ResetTransform();
             }
         }
