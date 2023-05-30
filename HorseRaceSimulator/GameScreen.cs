@@ -22,6 +22,7 @@ namespace HorseRaceSimulator
         //TODO: change the brush array into an image array to display the drawings
         SolidBrush[] audienceAppearance = new SolidBrush[] { new SolidBrush(Color.White), new SolidBrush(Color.LightGray), new SolidBrush(Color.Gray), new SolidBrush(Color.DarkGray) };
 
+        int injuredCount = 0;
         int winner  = 0;
         int endTimer = 0;
 
@@ -43,6 +44,11 @@ namespace HorseRaceSimulator
             if (Form1.horseThreeActive == true && Form1.horseThreeInjured == false)
             { Horse horseThree = new Horse(3); horses.Add(horseThree);}
 
+            // heal horses
+            Form1.horseOneInjured = false;
+            Form1.horseTwoInjured = false;
+            Form1.horseThreeInjured = false;
+
             // set up audience
             for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
             {
@@ -61,11 +67,6 @@ namespace HorseRaceSimulator
             // https://stackoverflow.com/questions/57371442/how-to-sort-listt-in-c-sharp
             // the two lines of sorting code were found from this website above.
             #endregion
-
-            // heal horses
-            Form1.horseOneInjured = false;
-            Form1.horseTwoInjured = false;
-            Form1.horseThreeInjured = false;
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -85,6 +86,13 @@ namespace HorseRaceSimulator
                 }
             }
 
+            // check how many horses can move
+            injuredCount = 0;
+            if (Form1.horseOneInjured == true) {injuredCount++;}
+            if (Form1.horseTwoInjured == true) {injuredCount++;}
+            if (Form1.horseThreeInjured == true) 
+            {injuredCount++;}
+
             // Audience actions
             foreach (Attendee a in audienceTop)
             {
@@ -93,7 +101,7 @@ namespace HorseRaceSimulator
                     a.Move();
 
                     // throw bottle
-                    if (a.ThrowBottle() == true)
+                    if (injuredCount +1 < horses.Count && a.ThrowBottle() == true)
                     {
                         // select a horse
                         try // do nothing if the horse is already gone
@@ -114,7 +122,7 @@ namespace HorseRaceSimulator
                 a.Move();
 
                 // throw bottle
-                if (a.ThrowBottle() == true)
+                if (injuredCount +1 < horses.Count && a.ThrowBottle() == true)
                 {
                     // select a horse
                     try // do nothing if the horse is already gone
@@ -155,8 +163,8 @@ namespace HorseRaceSimulator
             }
 
             // End game
-            // update counter
-            if (winner != 0)
+            // update counter - when a horse wins or if all horses become injured
+            if (winner != 0 || injuredCount >= horses.Count)
             {
                 endTimer++;
             }
