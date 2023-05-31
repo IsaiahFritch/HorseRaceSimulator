@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace HorseRaceSimulator
 {
-    internal class Horse
+    public class Horse
     {
         public int x, y, horseNumber, yMin, yMax, acceleration, yWiggle, horsePlace;
         public int width = 451, height = 219;
-        bool accCheckOne = false, accCheckTwo = false, accCheckThree = false; 
-        bool horseInLast = false;
+        public bool accCheckOne = false, accCheckTwo = false, accCheckThree = false; 
         public double rotation;
+        public bool injured = false;
 
         public Horse(int horseNumber_)
         {

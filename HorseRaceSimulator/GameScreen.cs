@@ -13,7 +13,7 @@ namespace HorseRaceSimulator
     public partial class GameScreen : UserControl
     {
         // Global variables
-        List<Horse> horses = new List<Horse>();
+        public static List<Horse> horses = new List<Horse>();
         List<Bottle> bottles = new List<Bottle>();
 
         // TODO: test if it's more efficent to paint using two lists that know what to image to draw, or one list that checks for the image in the class
@@ -31,24 +31,73 @@ namespace HorseRaceSimulator
         public GameScreen()
         {
             InitializeComponent();
+
+            // set up horses
+            if (horses.Count() == 0)
+            {
+                Horse horseOne = new Horse(1);
+                horses.Add(horseOne);
+                Horse horseTwo = new Horse(2);
+                horses.Add(horseTwo);
+                Horse horseThree = new Horse(3);
+                horses.Add(horseThree);
+            }
+
             SetInitialConditions();
         }
 
         public void SetInitialConditions()
         {
             // set up horses - check if they are active and add them
-            if (Form1.horseOneActive == true && Form1.horseOneInjured == false) 
-            {Horse horseOne = new Horse(1); horses.Add(horseOne);}
-            if (Form1.horseTwoActive == true && Form1.horseTwoInjured == false)
-            { Horse horseTwo = new Horse(2); horses.Add(horseTwo);}
-            if (Form1.horseThreeActive == true && Form1.horseThreeInjured == false)
-            { Horse horseThree = new Horse(3); horses.Add(horseThree);}
+            //if (Form1.horseOneActive == true && horses[0].injured == false) 
+            //{Horse horseOne = new Horse(1); horses.Add(horseOne);}
+            //if (Form1.horseTwoActive == true && Form1.horseTwoInjured == false)
+            //{Horse horseTwo = new Horse(2); horses.Add(horseTwo);}
+            //if (Form1.horseThreeActive == true && Form1.horseThreeInjured == false)
+            //{Horse horseThree = new Horse(3); horses.Add(horseThree);}
 
             // heal horses
-            Form1.horseOneInjured = false;
-            Form1.horseTwoInjured = false;
-            Form1.horseThreeInjured = false;
+            horses[0].injured = false;
+            horses[1].injured = false;
+            horses[2].injured = false;
+            //Form1.horseOneInjured = false;
+            //Form1.horseTwoInjured = false;
+            //Form1.horseThreeInjured = false;
 
+            // reset horses
+            // assign necessary values
+            foreach (Horse h in horses)
+            {
+                h.accCheckOne = false;
+                h.accCheckTwo = false;
+                h.accCheckThree = false;
+                h.acceleration = 1;
+
+                switch (h.horseNumber)
+                {
+                    case 1:
+                        h.x = -91;
+                        h.y = 600 - 219 - 225;
+                        h.yMin = 600 - 219 - 225 - 125;
+                        h.yMax = 600 - 219 - 225 + 90;
+                        break;
+
+                    case 2:
+                        h.x = -91;
+                        h.y = 600 - 219;
+                        h.yMin = 600 - 219 - 90;
+                        h.yMax = 600 - 219 + 90;
+                        break;
+
+                    case 3:
+                        h.x = -91;
+                        h.y = 600 - 219 + 225;
+                        h.yMin = 600 - 219 + 225 - 90;
+                        h.yMax = 600 - 219 + 225 + 150;
+                        break;
+                }
+            }
+ 
             // set up audience
             for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
             {
@@ -72,26 +121,39 @@ namespace HorseRaceSimulator
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             // Horse actions
+            // set injured to zero
+            injuredCount = 0;
+
             foreach (Horse h in horses)
             {
                 // move horses
-                if (Form1.horseOneInjured == false && h.horseNumber == 1) {h.Move();}
-                else if (Form1.horseTwoInjured == false && h.horseNumber == 2) {h.Move();}
-                else if (Form1.horseThreeInjured == false && h.horseNumber == 3) {h.Move();}
+                if (h.injured == false) 
+                { 
+                    h.Move(); 
+                }
+
+                //if (Form1.horseOneInjured == false && h.horseNumber == 1) {h.Move();}
+                //else if (Form1.horseTwoInjured == false && h.horseNumber == 2) {h.Move();}
+                //else if (Form1.horseThreeInjured == false && h.horseNumber == 3) {h.Move();}
 
                 // end game if a horse won
                 if (h.DidHorseWin() == true && winner == 0)
                 {
                     winner = h.horseNumber;
                 }
+
+                // check how many horses can move
+                if (h.injured)
+                {
+                    injuredCount++;
+                }
             }
 
-            // check how many horses can move
-            injuredCount = 0;
-            if (Form1.horseOneInjured == true) {injuredCount++;}
-            if (Form1.horseTwoInjured == true) {injuredCount++;}
-            if (Form1.horseThreeInjured == true) 
-            {injuredCount++;}
+
+            //if (Form1.horseOneInjured == true) {injuredCount++;}
+            //if (Form1.horseTwoInjured == true) {injuredCount++;}
+            //if (Form1.horseThreeInjured == true) 
+            //{injuredCount++;}
 
             // Audience actions
             foreach (Attendee a in audienceTop)
@@ -106,10 +168,12 @@ namespace HorseRaceSimulator
                         // select a horse
                         try // do nothing if the horse is already gone
                         {
-                            Horse h = horses[Form1.ranGen.Next(0, 3)];
+                            // pick target
+                            int horseTarget = Form1.ranGen.Next(0, horses.Count());
+                            //Horse h = horses[Form1.ranGen.Next(0, 3)];
 
                             // create bottle
-                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
+                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, horses[horseTarget].x + horses[horseTarget].width / 2, horses[horseTarget].y + horses[horseTarget].height / 2);
                             bottles.Add(newBottle);
                         }
                         catch { }
@@ -118,22 +182,24 @@ namespace HorseRaceSimulator
             }
             foreach (Attendee a in audienceBottom)
             {
-                // move audience
-                a.Move();
+                    // move audience
+                    a.Move();
 
-                // throw bottle
-                if (injuredCount +1 < horses.Count && a.ThrowBottle() == true)
-                {
-                    // select a horse
-                    try // do nothing if the horse is already gone
+                    // throw bottle
+                    if (injuredCount + 1 < horses.Count && a.ThrowBottle() == true)
                     {
-                        Horse h = horses[Form1.ranGen.Next(0, 3)];
+                        // select a horse
+                        try // do nothing if the horse is already gone
+                        {
+                            // pick target
+                            int horseTarget = Form1.ranGen.Next(0, horses.Count());
+                            //Horse h = horses[Form1.ranGen.Next(0, 3)];
 
-                        // create bottle
-                        Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, h.x + h.width / 2, h.y + h.height / 2);
-                        bottles.Add(newBottle);
-                    }
-                    catch { }
+                            // create bottle
+                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, horses[horseTarget].x + horses[horseTarget].width / 2, horses[horseTarget].y + horses[horseTarget].height / 2);
+                            bottles.Add(newBottle);
+                        }
+                        catch { }
                 }
             }
 
@@ -148,9 +214,10 @@ namespace HorseRaceSimulator
                 {
                     if (b.Collision(h) == true)
                     {
-                        if (h.horseNumber == 1) {Form1.horseOneInjured = true;}
-                        else if (h.horseNumber == 2) {Form1.horseTwoInjured = true;}
-                        else {Form1.horseThreeInjured = true;}
+                        h.injured = true;
+                        //if (h.horseNumber == 1) {Form1.horseOneInjured = true;}
+                        //else if (h.horseNumber == 2) {Form1.horseTwoInjured = true;}
+                        //else {Form1.horseThreeInjured = true;}
                     }
                 }
 
@@ -164,7 +231,7 @@ namespace HorseRaceSimulator
 
             // End game
             // update counter - when a horse wins or if all horses become injured
-            if (winner != 0 || injuredCount >= horses.Count)
+            if (winner != 0 || injuredCount == horses.Count)
             {
                 endTimer++;
             }
