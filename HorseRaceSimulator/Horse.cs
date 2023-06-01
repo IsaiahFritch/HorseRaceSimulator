@@ -153,7 +153,7 @@ namespace HorseRaceSimulator
 
         public bool DidHorseWin()
         {
-            if (x + width > 1620)
+            if (x + width > 1620 && x < 8000)
             {
                 return true;
             }

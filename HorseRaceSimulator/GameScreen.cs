@@ -16,15 +16,18 @@ namespace HorseRaceSimulator
         public static List<Horse> horses = new List<Horse>();
         List<Bottle> bottles = new List<Bottle>();
 
-        // TODO: test if it's more efficent to paint using two lists that know what to image to draw, or one list that checks for the image in the class
-        List<Attendee> audienceTop = new List<Attendee>();
-        List<Attendee> audienceBottom = new List<Attendee>();
+        // create audience list
+        List<Attendee> audience = new List<Attendee>();
+
         //TODO: change the brush array into an image array to display the drawings
         SolidBrush[] audienceAppearance = new SolidBrush[] { new SolidBrush(Color.White), new SolidBrush(Color.LightGray), new SolidBrush(Color.Gray), new SolidBrush(Color.DarkGray) };
 
         int injuredCount = 0;
         int winner  = 0;
         int endTimer = 0;
+        int activeHorseCount = 3;
+        int topAudienceCount;
+        int bottomAudienceCount;
 
         Brush whiteBrush = new SolidBrush(Color.White);
 
@@ -48,26 +51,10 @@ namespace HorseRaceSimulator
 
         public void SetInitialConditions()
         {
-            // set up horses - check if they are active and add them
-            //if (Form1.horseOneActive == true && horses[0].injured == false) 
-            //{Horse horseOne = new Horse(1); horses.Add(horseOne);}
-            //if (Form1.horseTwoActive == true && Form1.horseTwoInjured == false)
-            //{Horse horseTwo = new Horse(2); horses.Add(horseTwo);}
-            //if (Form1.horseThreeActive == true && Form1.horseThreeInjured == false)
-            //{Horse horseThree = new Horse(3); horses.Add(horseThree);}
-
-            // heal horses
-            horses[0].injured = false;
-            horses[1].injured = false;
-            horses[2].injured = false;
-            //Form1.horseOneInjured = false;
-            //Form1.horseTwoInjured = false;
-            //Form1.horseThreeInjured = false;
-
-            // reset horses
-            // assign necessary values
+            // Reset horses
             foreach (Horse h in horses)
-            {
+            {  
+                // assign necessary values
                 h.accCheckOne = false;
                 h.accCheckTwo = false;
                 h.accCheckThree = false;
@@ -96,22 +83,37 @@ namespace HorseRaceSimulator
                         h.yMax = 600 - 219 + 225 + 150;
                         break;
                 }
+
+                // "remove" injured horses
+                if (h.injured == true)
+                {
+                    h.x = 10000;
+                    activeHorseCount--;
+                }
+
+                // heal horses
+                h.injured = false;
             }
- 
-            // set up audience
-            for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
+
+            // Set up audience
+            // record how many attendees are in the audience
+            topAudienceCount = Form1.ranGen.Next(10, 31);
+            bottomAudienceCount = Form1.ranGen.Next(10, 31);
+
+            // add attendees to list 
+            for (int i = 0; i < topAudienceCount; i++)
             {
                 Attendee topAttendee = new Attendee("top");
-                audienceTop.Add(topAttendee);
+                audience.Add(topAttendee);
             }
-            for (int i = 0; i < Form1.ranGen.Next(10, 31); i++)
+            for (int i = 0; i < bottomAudienceCount; i++)
             {
                 Attendee bottomAttendee = new Attendee("bottom");
-                audienceBottom.Add(bottomAttendee);
+                audience.Add(bottomAttendee);
             }
+
             // order audience from furthest into background to closest to foreground
-            audienceTop = audienceTop.OrderBy(o => o.y).ToList();
-            audienceBottom = audienceBottom.OrderBy(o => o.y).ToList();
+            audience = audience.OrderBy(o => o.y).ToList();
             #region Note for Mr. T
             // https://stackoverflow.com/questions/57371442/how-to-sort-listt-in-c-sharp
             // the two lines of sorting code were found from this website above.
@@ -126,80 +128,50 @@ namespace HorseRaceSimulator
 
             foreach (Horse h in horses)
             {
+                // check how many horses can move
+                if (h.injured)
+                {
+                    injuredCount++;
+                }
+
                 // move horses
                 if (h.injured == false) 
                 { 
                     h.Move(); 
                 }
 
-                //if (Form1.horseOneInjured == false && h.horseNumber == 1) {h.Move();}
-                //else if (Form1.horseTwoInjured == false && h.horseNumber == 2) {h.Move();}
-                //else if (Form1.horseThreeInjured == false && h.horseNumber == 3) {h.Move();}
-
                 // end game if a horse won
                 if (h.DidHorseWin() == true && winner == 0)
                 {
                     winner = h.horseNumber;
                 }
-
-                // check how many horses can move
-                if (h.injured)
-                {
-                    injuredCount++;
-                }
             }
 
-
-            //if (Form1.horseOneInjured == true) {injuredCount++;}
-            //if (Form1.horseTwoInjured == true) {injuredCount++;}
-            //if (Form1.horseThreeInjured == true) 
-            //{injuredCount++;}
-
             // Audience actions
-            foreach (Attendee a in audienceTop)
+            foreach (Attendee a in audience)
             {
                 {
                     // move audience
                     a.Move();
 
                     // throw bottle
-                    if (injuredCount +1 < horses.Count && a.ThrowBottle() == true)
+                    if (injuredCount + 1 < activeHorseCount && a.ThrowBottle() == true)
                     {
                         // select a horse
                         try // do nothing if the horse is already gone
                         {
                             // pick target
                             int horseTarget = Form1.ranGen.Next(0, horses.Count());
-                            //Horse h = horses[Form1.ranGen.Next(0, 3)];
 
-                            // create bottle
-                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, horses[horseTarget].x + horses[horseTarget].width / 2, horses[horseTarget].y + horses[horseTarget].height / 2);
-                            bottles.Add(newBottle);
+                            if (horses[horseTarget].x < 1620)
+                            {
+                                // create bottle
+                                Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, horses[horseTarget].x + horses[horseTarget].width / 2, horses[horseTarget].y + horses[horseTarget].height / 2);
+                                bottles.Add(newBottle);
+                            }
                         }
                         catch { }
                     }
-                }
-            }
-            foreach (Attendee a in audienceBottom)
-            {
-                    // move audience
-                    a.Move();
-
-                    // throw bottle
-                    if (injuredCount + 1 < horses.Count && a.ThrowBottle() == true)
-                    {
-                        // select a horse
-                        try // do nothing if the horse is already gone
-                        {
-                            // pick target
-                            int horseTarget = Form1.ranGen.Next(0, horses.Count());
-                            //Horse h = horses[Form1.ranGen.Next(0, 3)];
-
-                            // create bottle
-                            Bottle newBottle = new Bottle(a.x + a.width / 2, a.y + a.height / 2, horses[horseTarget].x + horses[horseTarget].width / 2, horses[horseTarget].y + horses[horseTarget].height / 2);
-                            bottles.Add(newBottle);
-                        }
-                        catch { }
                 }
             }
 
@@ -215,9 +187,6 @@ namespace HorseRaceSimulator
                     if (b.Collision(h) == true)
                     {
                         h.injured = true;
-                        //if (h.horseNumber == 1) {Form1.horseOneInjured = true;}
-                        //else if (h.horseNumber == 2) {Form1.horseTwoInjured = true;}
-                        //else {Form1.horseThreeInjured = true;}
                     }
                 }
 
@@ -231,7 +200,7 @@ namespace HorseRaceSimulator
 
             // End game
             // update counter - when a horse wins or if all horses become injured
-            if (winner != 0 || injuredCount == horses.Count)
+            if (winner != 0 || injuredCount == activeHorseCount)
             {
                 endTimer++;
             }
@@ -239,6 +208,9 @@ namespace HorseRaceSimulator
             // end game
             if (endTimer == 100)
             {
+                // end timer
+                gameTimer.Enabled = false;
+
                 //TODO SEND WINNER INFORMATION TO WINNING SCREEN
                 //RIGHT NOW, JUST RETURN TO MENU
 
@@ -251,16 +223,19 @@ namespace HorseRaceSimulator
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            // draw background
+            // draw screen background
             e.Graphics.DrawImage(Form1.gameScreenRaceTrackImage, 0, 0, 1920, 1080);
+
+            // draw track background
             e.Graphics.DrawImage(Form1.gameScreenBackgroundImage, 0, 0, 1920, 1080);
 
             // draw top of audience (view face)
-            foreach (Attendee a in audienceTop)
+            for (int i = 0; i < topAudienceCount; i++)
             {
-                e.Graphics.DrawImage(Form1.attendeeOneFrontImage, a.x, a.y, a.width, a.height);
+                e.Graphics.DrawImage(Form1.attendeeOneFrontImage, audience[i].x, audience[i].y, audience[i].width, audience[i].height);
             }
 
+            // draw track midground
             e.Graphics.DrawImage(Form1.gameScreenMidgroundImage, 0, 0, 1920, 1080);
 
             // draw horses
@@ -272,6 +247,7 @@ namespace HorseRaceSimulator
                 e.Graphics.ResetTransform();
             }
 
+            // draw track foreground
             e.Graphics.DrawImage(Form1.gameScreenForegroundImage, 0, 0, 1920, 1080);
 
             // draw bottles
@@ -284,9 +260,9 @@ namespace HorseRaceSimulator
             }
 
             // draw bottom of audience (view back of head)
-            foreach (Attendee a in audienceBottom)
+            for (int i = topAudienceCount; i < bottomAudienceCount + topAudienceCount; i++)
             {
-                e.Graphics.DrawImage(Form1.attendeeOneBackImage, a.x, a.y, a.width, a.height);
+                e.Graphics.DrawImage(Form1.attendeeOneBackImage, audience[i].x, audience[i].y, audience[i].width, audience[i].height);
             }
         }
     }
