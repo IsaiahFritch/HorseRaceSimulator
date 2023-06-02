@@ -213,6 +213,10 @@ namespace HorseRaceSimulator
 
                 //TODO SEND WINNER INFORMATION TO WINNING SCREEN
                 //RIGHT NOW, JUST RETURN TO MENU
+                //MOVE THIS CODE TO THE WINNING SCREEN
+                if (winner == 1) { Form1.moneyAmount += 2 * Form1.horseOneBets; }
+                else if (winner == 2) { Form1.moneyAmount += 2 * Form1.horseTwoBets; }
+                else if (winner == 3) { Form1.moneyAmount += 2 * Form1.horseThreeBets; }
 
                 // Launch Main Screen
                 Form1.ChangeScreen(this, new MenuScreen());

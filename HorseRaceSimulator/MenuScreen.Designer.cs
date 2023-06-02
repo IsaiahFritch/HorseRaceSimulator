@@ -33,6 +33,8 @@
             this.betsButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.stealButton = new System.Windows.Forms.Button();
+            this.moneyAmountLabel = new System.Windows.Forms.Label();
+            this.moneyAmountUnderLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // exitButton
@@ -125,16 +127,42 @@
             this.stealButton.MouseEnter += new System.EventHandler(this.stealButton_MouseEnter);
             this.stealButton.MouseLeave += new System.EventHandler(this.stealButton_MouseLeave);
             // 
+            // moneyAmountLabel
+            // 
+            this.moneyAmountLabel.BackColor = System.Drawing.Color.Transparent;
+            this.moneyAmountLabel.Font = new System.Drawing.Font("MV Boli", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moneyAmountLabel.ForeColor = System.Drawing.Color.Black;
+            this.moneyAmountLabel.Location = new System.Drawing.Point(-1, -2);
+            this.moneyAmountLabel.Name = "moneyAmountLabel";
+            this.moneyAmountLabel.Size = new System.Drawing.Size(153, 74);
+            this.moneyAmountLabel.TabIndex = 7;
+            this.moneyAmountLabel.Text = "Money";
+            this.moneyAmountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // moneyAmountUnderLabel
+            // 
+            this.moneyAmountUnderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.moneyAmountUnderLabel.Font = new System.Drawing.Font("MV Boli", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moneyAmountUnderLabel.ForeColor = System.Drawing.Color.Silver;
+            this.moneyAmountUnderLabel.Location = new System.Drawing.Point(152, 111);
+            this.moneyAmountUnderLabel.Name = "moneyAmountUnderLabel";
+            this.moneyAmountUnderLabel.Size = new System.Drawing.Size(153, 74);
+            this.moneyAmountUnderLabel.TabIndex = 8;
+            this.moneyAmountUnderLabel.Text = "Money";
+            this.moneyAmountUnderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.moneyAmountLabel);
             this.Controls.Add(this.stealButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.betsButton);
             this.Controls.Add(this.shopButton);
             this.Controls.Add(this.exitButton);
+            this.Controls.Add(this.moneyAmountUnderLabel);
             this.DoubleBuffered = true;
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(1920, 1080);
@@ -150,5 +178,7 @@
         private System.Windows.Forms.Button betsButton;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button stealButton;
+        private System.Windows.Forms.Label moneyAmountLabel;
+        private System.Windows.Forms.Label moneyAmountUnderLabel;
     }
 }

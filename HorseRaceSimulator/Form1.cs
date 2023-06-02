@@ -17,8 +17,11 @@ namespace HorseRaceSimulator
         public static Random ranGen = new Random();
 
         // variables for horse reduction
-        public static bool horseOneInjured = false, horseTwoInjured = false, horseThreeInjured = false;
         public static bool horseOneActive = true, horseTwoActive = true, horseThreeActive = true;
+
+        // bets
+        public static int moneyAmount = 500;
+        public static int horseOneBets, horseTwoBets, horseThreeBets;
 
         // create all images
         #region menu background images

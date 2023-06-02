@@ -45,6 +45,11 @@ namespace HorseRaceSimulator
             startButton.Text = "";
             exitButton.Text = "";
             stealButton.Text = "";
+
+            // set money label
+            moneyAmountLabel.Parent = moneyAmountUnderLabel;
+            moneyAmountLabel.Text = $"{Form1.moneyAmount}";
+            moneyAmountUnderLabel.Text = $"{Form1.moneyAmount}";
         }
 
         private void MenuScreen_Paint(object sender, PaintEventArgs e)
@@ -184,6 +189,23 @@ namespace HorseRaceSimulator
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            // Record the bets
+            // get values from bet screen
+            Form1.horseOneBets = 37;
+            Form1.horseTwoBets = 0;
+            Form1.horseThreeBets = 0;
+
+            // remove bet money from total amount if there is enough money
+            if (Form1.moneyAmount >= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets))
+            {
+                Form1.moneyAmount -= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets);
+            }
+            else
+            {
+                // display "insufficient funds" error
+                // reset all betting fields
+            }
+
             // Launch Game Screen
             Form1.ChangeScreen(this, new GameScreen());
         }
