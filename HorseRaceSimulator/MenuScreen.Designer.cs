@@ -35,6 +35,9 @@
             this.stealButton = new System.Windows.Forms.Button();
             this.moneyAmountLabel = new System.Windows.Forms.Label();
             this.moneyAmountUnderLabel = new System.Windows.Forms.Label();
+            this.horseOneBetInput = new System.Windows.Forms.TextBox();
+            this.horseTwoBetInput = new System.Windows.Forms.TextBox();
+            this.horseThreeBetInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // exitButton
@@ -151,11 +154,53 @@
             this.moneyAmountUnderLabel.Text = "Money";
             this.moneyAmountUnderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // horseOneBetInput
+            // 
+            this.horseOneBetInput.BackColor = System.Drawing.Color.Snow;
+            this.horseOneBetInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.horseOneBetInput.Font = new System.Drawing.Font("MV Boli", 21.75F);
+            this.horseOneBetInput.Location = new System.Drawing.Point(449, 592);
+            this.horseOneBetInput.Name = "horseOneBetInput";
+            this.horseOneBetInput.Size = new System.Drawing.Size(238, 47);
+            this.horseOneBetInput.TabIndex = 9;
+            this.horseOneBetInput.Text = "Horse One Bet";
+            this.horseOneBetInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.horseOneBetInput.Visible = false;
+            // 
+            // horseTwoBetInput
+            // 
+            this.horseTwoBetInput.BackColor = System.Drawing.Color.Snow;
+            this.horseTwoBetInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.horseTwoBetInput.Font = new System.Drawing.Font("MV Boli", 21.75F);
+            this.horseTwoBetInput.Location = new System.Drawing.Point(851, 592);
+            this.horseTwoBetInput.Name = "horseTwoBetInput";
+            this.horseTwoBetInput.Size = new System.Drawing.Size(238, 47);
+            this.horseTwoBetInput.TabIndex = 10;
+            this.horseTwoBetInput.Text = "Horse Two Bet";
+            this.horseTwoBetInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.horseTwoBetInput.Visible = false;
+            // 
+            // horseThreeBetInput
+            // 
+            this.horseThreeBetInput.BackColor = System.Drawing.Color.Snow;
+            this.horseThreeBetInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.horseThreeBetInput.Font = new System.Drawing.Font("MV Boli", 21.75F);
+            this.horseThreeBetInput.Location = new System.Drawing.Point(1253, 592);
+            this.horseThreeBetInput.Name = "horseThreeBetInput";
+            this.horseThreeBetInput.Size = new System.Drawing.Size(238, 47);
+            this.horseThreeBetInput.TabIndex = 11;
+            this.horseThreeBetInput.Text = "Horse Three Bet";
+            this.horseThreeBetInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.horseThreeBetInput.Visible = false;
+            // 
             // MenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.horseThreeBetInput);
+            this.Controls.Add(this.horseTwoBetInput);
+            this.Controls.Add(this.horseOneBetInput);
             this.Controls.Add(this.moneyAmountLabel);
             this.Controls.Add(this.stealButton);
             this.Controls.Add(this.startButton);
@@ -168,6 +213,7 @@
             this.Size = new System.Drawing.Size(1920, 1080);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuScreen_Paint);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -180,5 +226,8 @@
         private System.Windows.Forms.Button stealButton;
         private System.Windows.Forms.Label moneyAmountLabel;
         private System.Windows.Forms.Label moneyAmountUnderLabel;
+        private System.Windows.Forms.TextBox horseOneBetInput;
+        private System.Windows.Forms.TextBox horseTwoBetInput;
+        private System.Windows.Forms.TextBox horseThreeBetInput;
     }
 }

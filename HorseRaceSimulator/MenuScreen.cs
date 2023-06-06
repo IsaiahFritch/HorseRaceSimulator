@@ -12,6 +12,10 @@ namespace HorseRaceSimulator
 {
     public partial class MenuScreen : UserControl
     {
+        //REMOVE PENS AND BRUSHES
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
+        SolidBrush redBrush = new SolidBrush(Color.Red);
+
         // Global variables
         bool shopClicked = false;
         bool betsClicked = false;
@@ -22,6 +26,7 @@ namespace HorseRaceSimulator
         Rectangle backgroundImageTwoBox = new Rectangle(0, 0, 1920, 1080);
         Rectangle backgroundImageThreeBox = new Rectangle(0, 0, 1920, 1080);
         #endregion
+
         #region buttons
         Rectangle moneyCountImageBox = new Rectangle(0, 0, 1920, 1080);
         Rectangle shopImageBox = new Rectangle(0, 0, 1920, 1080);
@@ -29,6 +34,16 @@ namespace HorseRaceSimulator
         Rectangle raceImageBox = new Rectangle(0, 0, 1920, 1080);
         Rectangle leaveGameImageBox = new Rectangle(0, 0, 1920, 1080);
         Rectangle stealImageBox = new Rectangle(0, 0, 1920, 1080);
+        #endregion
+
+        #region betting menu
+
+        // all rough guesses for size and location
+        Rectangle betMenuBox = new Rectangle(295, 110, 1330, 590);
+        Rectangle horseOneInactiveBox = new Rectangle(320, 135, 300, 300);
+        Rectangle horseTwoInactiveBox = new Rectangle(660, 135, 300, 300);
+        Rectangle horseThreeInactiveBox = new Rectangle(1005, 135, 300, 300);
+
         #endregion
 
         public MenuScreen()
@@ -46,6 +61,11 @@ namespace HorseRaceSimulator
             exitButton.Text = "";
             stealButton.Text = "";
 
+            // set text in inputs
+            horseOneBetInput.Text = "0";
+            horseTwoBetInput.Text = "0";
+            horseThreeBetInput.Text = "0";
+
             // set money label
             moneyAmountLabel.Parent = moneyAmountUnderLabel;
             moneyAmountLabel.Text = $"{Form1.moneyAmount}";
@@ -60,6 +80,51 @@ namespace HorseRaceSimulator
             e.Graphics.DrawImage(Form1.backgroundImageTwo, backgroundImageTwoBox); //this image will change throughout the game as stuff is bought
             e.Graphics.DrawImage(Form1.backgroundImageThree, backgroundImageThreeBox);
             #endregion
+
+            #region betting menu
+            // check if the bet menu is up
+            if (betsClicked == true)
+            {
+                // Display bet menu
+                // show menu image
+                e.Graphics.FillRectangle(whiteBrush, betMenuBox);
+
+                // show inactive horses -- do nothing if no horses exist yet
+                try
+                {
+                    if (GameScreen.horses[0].injured == true)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseOneInactiveBox);
+                        horseOneBetInput.Enabled = false;
+                    }
+                    if (GameScreen.horses[1].injured == true)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseTwoInactiveBox);
+                        horseTwoBetInput.Enabled = false;
+                    }
+                    if (GameScreen.horses[2].injured == true)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseThreeInactiveBox);
+                        horseThreeBetInput.Enabled = false;
+                    }
+                }
+                catch { }
+
+                // show inputs
+                horseOneBetInput.Visible = true;
+                horseTwoBetInput.Visible = true;
+                horseThreeBetInput.Visible = true;
+            }
+            else
+            {
+                // Clear bet menu
+                // hide inputs
+                horseOneBetInput.Visible = false;
+                horseTwoBetInput.Visible = false;
+                horseThreeBetInput.Visible = false;
+            }
+            #endregion
+
             #region buttons
             e.Graphics.DrawImage(Form1.moneyImage, moneyCountImageBox);
             e.Graphics.DrawImage(Form1.shopImageCURRENT, shopImageBox);
@@ -191,23 +256,47 @@ namespace HorseRaceSimulator
         {
             // Record the bets
             // get values from bet screen
-            Form1.horseOneBets = 37;
-            Form1.horseTwoBets = 0;
-            Form1.horseThreeBets = 0;
+            try
+            {
+                Form1.horseOneBets = Convert.ToInt32(horseOneBetInput.Text);
+            }
+            catch
+            {
+                horseOneBetInput.Text = "0";
+            }
+            try
+            {
+                Form1.horseTwoBets = Convert.ToInt32(horseTwoBetInput.Text);
+            }
+            catch
+            {
+                horseTwoBetInput.Text = "0";
+            }
+            try
+            {
+                Form1.horseThreeBets = Convert.ToInt32(horseThreeBetInput.Text);
+            }
+            catch
+            {
+                horseThreeBetInput.Text = "0";
+            }
 
-            // remove bet money from total amount if there is enough money
             if (Form1.moneyAmount >= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets))
             {
+                // remove bet money from total amount if there is enough money
                 Form1.moneyAmount -= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets);
+
+                // Launch Game Screen
+                Form1.ChangeScreen(this, new GameScreen());
             }
             else
             {
                 // display "insufficient funds" error
                 // reset all betting fields
+                horseOneBetInput.Text = "0";
+                horseTwoBetInput.Text = "0";
+                horseThreeBetInput.Text = "0";
             }
-
-            // Launch Game Screen
-            Form1.ChangeScreen(this, new GameScreen());
         }
         #endregion
 
