@@ -23,6 +23,10 @@ namespace HorseRaceSimulator
         public static int moneyAmount = 500;
         public static int horseOneBets, horseTwoBets, horseThreeBets;
 
+        // scenes
+        public static bool openingScene = true;
+        public static int pageNumber;
+
         // create all images
         #region menu background images
         public static Image backgroundImageOne = Properties.Resources.HRSbackground1;
