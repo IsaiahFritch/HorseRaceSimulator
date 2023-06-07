@@ -127,11 +127,31 @@ namespace HorseRaceSimulator
 
             #region buttons
             e.Graphics.DrawImage(Form1.moneyImage, moneyCountImageBox);
-            e.Graphics.DrawImage(Form1.shopImageCURRENT, shopImageBox);
             e.Graphics.DrawImage(Form1.betsImageCURRENT, betsImageBox);
             e.Graphics.DrawImage(Form1.startRaceImageCURRENT, raceImageBox);
             e.Graphics.DrawImage(Form1.leaveGameImageCURRENT, leaveGameImageBox);
-            e.Graphics.DrawImage(Form1.stealImageCURRENT, stealImageBox);
+
+            // hide/show shop button if the menu covers it
+            if (betsClicked == false)
+            {
+                e.Graphics.DrawImage(Form1.shopImageCURRENT, shopImageBox);
+                shopButton.Visible = true;
+            }
+            else
+            {
+                shopButton.Visible = false;
+            }
+
+            // see if the player is elligable to steal a horse
+            if (Form1.moneyAmount == 0)
+            {
+                e.Graphics.DrawImage(Form1.stealImageCURRENT, stealImageBox);
+                stealButton.Visible = true;
+            }
+            else
+            {
+                stealButton.Visible = false;
+            }
             #endregion
         }
 
@@ -258,7 +278,7 @@ namespace HorseRaceSimulator
             // get values from bet screen
             try
             {
-                Form1.horseOneBets = Convert.ToInt32(horseOneBetInput.Text);
+                Form1.horseOneBets = Math.Abs(Convert.ToInt32(horseOneBetInput.Text));
             }
             catch
             {
@@ -266,7 +286,7 @@ namespace HorseRaceSimulator
             }
             try
             {
-                Form1.horseTwoBets = Convert.ToInt32(horseTwoBetInput.Text);
+                Form1.horseTwoBets = Math.Abs(Convert.ToInt32(horseTwoBetInput.Text));
             }
             catch
             {
@@ -274,7 +294,7 @@ namespace HorseRaceSimulator
             }
             try
             {
-                Form1.horseThreeBets = Convert.ToInt32(horseThreeBetInput.Text);
+                Form1.horseThreeBets = Math.Abs(Convert.ToInt32(horseThreeBetInput.Text));
             }
             catch
             {

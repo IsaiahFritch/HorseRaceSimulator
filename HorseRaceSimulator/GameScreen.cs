@@ -30,6 +30,7 @@ namespace HorseRaceSimulator
         int bottomAudienceCount;
 
         Brush whiteBrush = new SolidBrush(Color.White);
+        Brush yellowBrush = new SolidBrush(Color.Gold);
 
         public GameScreen()
         {
@@ -245,9 +246,19 @@ namespace HorseRaceSimulator
             // draw horses
             foreach (Horse h in horses)
             {
-                e.Graphics.TranslateTransform(h.x, h.y + h.width);
+                e.Graphics.TranslateTransform(h.x, h.y + h.height);
                 e.Graphics.RotateTransform((float)h.rotation);
-                e.Graphics.DrawImage(Form1.raceHorseImage, 0, 0 - h.width, h.width, h.height);
+                e.Graphics.DrawImage(Form1.raceHorseImage, 0, 0 - h.height, h.width, h.height);
+                e.Graphics.ResetTransform();
+            }
+
+            // draw winner crown
+            if (winner != 0)
+            {
+                Horse h = horses[winner - 1];
+                e.Graphics.TranslateTransform(h.x + h.width, h.y + h.height);
+                e.Graphics.RotateTransform((float)h.rotation);
+                e.Graphics.FillRectangle(yellowBrush, 0 - h.width/2, 0 - h.height, 80, 80);
                 e.Graphics.ResetTransform();
             }
 
