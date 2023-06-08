@@ -29,6 +29,7 @@ namespace HorseRaceSimulator
             // draw scenes
             switch (Form1.pageNumber)
             {
+                #region Opening Scene
                 case 1:
                     // text
                     outputLabel.Text = "FIRST PAGE TEST TEXT";
@@ -44,6 +45,27 @@ namespace HorseRaceSimulator
                     // draw scene
                     e.Graphics.FillRectangle(grayBrush, 50, 50, 1500, 800);
                     break;
+                #endregion
+
+                #region Horse Stealing Scene
+                case 11:
+                    // text
+                    outputLabel.Text = "Horse stealing";
+
+                    // draw scene
+                    e.Graphics.FillRectangle(whiteBrush, 50, 50, 1500, 800);
+                    break;
+
+                case 12:
+                    // text
+                    outputLabel.Text = "Honsies on my mind";
+
+                    // draw scene
+                    e.Graphics.FillRectangle(grayBrush, 50, 50, 1500, 800);
+                    break;
+                    #endregion
+
+
             }
 
             // TODO DRAW BUTTONS
@@ -54,6 +76,7 @@ namespace HorseRaceSimulator
         {
             switch (Form1.pageNumber)
             {
+                #region Opening Scene
                 case 1:
                     // next page
                     Form1.pageNumber = 2;
@@ -63,6 +86,85 @@ namespace HorseRaceSimulator
                     // Launch Menu Screen
                     Form1.ChangeScreen(this, new MenuScreen());
                     break;
+                #endregion
+
+                #region Opening Scene
+                case 11:
+                    // next page
+                    Form1.pageNumber = 12;
+                    break;
+
+                case 12:
+                    // add money
+                    Form1.moneyAmount += 500;
+
+                    // Remove a horse from the game
+                    // choose a horse to "sell"/remove
+                    int r = Form1.ranGen.Next(1,4);
+
+                    // remove horse from game -- run until a horse is removed
+                    while (r !=0)
+                    {
+                        if (r == 1)
+                        {
+                            // check if the horse hasn't already been sold
+                            if (Form1.horseOneActive == true)
+                            {
+                                // remove horse
+                                Form1.horseOneActive = false;
+
+                                // end while loop
+                                r = 0;
+                            }
+                            else
+                            {
+                                // check next horse
+                                r++;
+                            }
+                        }
+
+                        if (r == 2)
+                        {
+                            // check if the horse hasn't already been sold
+                            if (Form1.horseTwoActive == true)
+                            {
+                                // remove horse
+                                Form1.horseTwoActive = false;
+
+                                // end while loop
+                                r = 0;
+                            }
+                            else
+                            {
+                                // check next horse
+                                r++;
+                            }
+                        }
+
+                        if (r == 3)
+                        {
+                            // check if the horse hasn't already been sold
+                            if (Form1.horseThreeActive == true)
+                            {
+                                // remove horse
+                                Form1.horseThreeActive = false;
+
+                                // end while loop
+                                r = 0;
+                            }
+                            else
+                            {
+                                // check next horse
+                                r = 1;
+                            }
+                        }
+
+                    }
+
+                    // Launch Menu Screen
+                    Form1.ChangeScreen(this, new MenuScreen());
+                    break;
+                    #endregion
             }
 
             Refresh();

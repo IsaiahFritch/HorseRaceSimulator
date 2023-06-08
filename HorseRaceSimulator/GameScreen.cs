@@ -47,6 +47,11 @@ namespace HorseRaceSimulator
                 horses.Add(horseThree);
             }
 
+            // check if the horses are active
+            if (Form1.horseOneActive == false) { horses[0].active = false; }
+            if (Form1.horseTwoActive == false) { horses[1].active = false; }
+            if (Form1.horseThreeActive == false) { horses[2].active = false; }
+
             SetInitialConditions();
         }
 
@@ -85,8 +90,8 @@ namespace HorseRaceSimulator
                         break;
                 }
 
-                // "remove" injured horses
-                if (h.injured == true)
+                // "remove" injured or inactive horses
+                if (h.injured == true || h.active == false)
                 {
                     h.x = 10000;
                     activeHorseCount--;

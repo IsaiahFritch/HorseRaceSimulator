@@ -13,6 +13,7 @@ namespace HorseRaceSimulator
         public bool accCheckOne = false, accCheckTwo = false, accCheckThree = false; 
         public double rotation;
         public bool injured = false;
+        public bool active = true;
 
         public Horse(int horseNumber_)
         {

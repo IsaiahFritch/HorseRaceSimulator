@@ -89,9 +89,25 @@ namespace HorseRaceSimulator
                 // show menu image
                 e.Graphics.FillRectangle(whiteBrush, betMenuBox);
 
-                // show inactive horses -- do nothing if no horses exist yet
+                // show inactive horses -- do nothing if no horses exist yet  _TODO_ SIMPLIFY THIS CODE.  ON FIRST RUN, IF PLAYER HAS NO MONEY THAN A TWO STATEMENT IF(or) WILL CHECK BOTH STATEMENTS AND CRASH
                 try
                 {
+                    if (Form1.horseOneActive == false)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseOneInactiveBox);
+                        horseOneBetInput.Enabled = false;
+                    }
+                    if (Form1.horseTwoActive == false)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseTwoInactiveBox);
+                        horseTwoBetInput.Enabled = false;
+                    }
+                    if (Form1.horseThreeActive == false)
+                    {
+                        e.Graphics.FillRectangle(redBrush, horseThreeInactiveBox);
+                        horseThreeBetInput.Enabled = false;
+                    }
+
                     if (GameScreen.horses[0].injured == true)
                     {
                         e.Graphics.FillRectangle(redBrush, horseOneInactiveBox);
@@ -337,7 +353,11 @@ namespace HorseRaceSimulator
 
         private void stealButton_Click(object sender, EventArgs e)
         {
+            // set the page number
+            Form1.pageNumber = 11;
 
+            // Launch Cut Scene Screen
+            Form1.ChangeScreen(this, new CutSceneScreen());
         }
         #endregion
     }
