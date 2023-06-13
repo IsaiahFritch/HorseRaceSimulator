@@ -47,10 +47,18 @@ namespace HorseRaceSimulator
                 horses.Add(horseThree);
             }
 
-            // check if the horses are active
+            // check if the horses are active or injured
             if (Form1.horseOneActive == false) { horses[0].active = false; }
             if (Form1.horseTwoActive == false) { horses[1].active = false; }
             if (Form1.horseThreeActive == false) { horses[2].active = false; }
+
+            if (Form1.firstMatch == true)
+            {
+                if (Form1.horseOneInjured == false) { horses[0].injured = false; }
+                if (Form1.horseTwoInjured == false) { horses[1].injured = false; }
+                if (Form1.horseThreeInjured == false) { horses[2].injured = false; }
+                Form1.firstMatch = false;
+            }
 
             SetInitialConditions();
         }

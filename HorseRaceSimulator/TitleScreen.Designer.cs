@@ -30,6 +30,7 @@
         {
             this.playButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.newSaveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playButton
@@ -54,11 +55,23 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // newSaveButton
+            // 
+            this.newSaveButton.Font = new System.Drawing.Font("MV Boli", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newSaveButton.Location = new System.Drawing.Point(1659, 934);
+            this.newSaveButton.Name = "newSaveButton";
+            this.newSaveButton.Size = new System.Drawing.Size(208, 101);
+            this.newSaveButton.TabIndex = 2;
+            this.newSaveButton.Text = "NEW";
+            this.newSaveButton.UseVisualStyleBackColor = true;
+            this.newSaveButton.Click += new System.EventHandler(this.newSaveButton_Click);
+            // 
             // TitleScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.newSaveButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
             this.Name = "TitleScreen";
@@ -71,5 +84,6 @@
 
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button newSaveButton;
     }
 }

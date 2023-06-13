@@ -18,6 +18,7 @@ namespace HorseRaceSimulator
 
         // variables for horse reduction
         public static bool horseOneActive = true, horseTwoActive = true, horseThreeActive = true;
+        public static bool horseOneInjured = false, horseTwoInjured = false, horseThreeInjured = false;
 
         // bets
         public static int moneyAmount = 500;
@@ -26,6 +27,9 @@ namespace HorseRaceSimulator
         // scenes
         public static bool openingScene = true;
         public static int pageNumber;
+
+        // first match since loading
+        public static bool firstMatch = true;
 
         // create all images
         #region menu background images
