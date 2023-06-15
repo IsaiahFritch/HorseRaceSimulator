@@ -92,17 +92,17 @@ namespace HorseRaceSimulator
                 // show inactive horses -- do nothing if no horses exist yet  _TODO_ SIMPLIFY THIS CODE.  ON FIRST RUN, IF PLAYER HAS NO MONEY THAN A TWO STATEMENT IF(or) WILL CHECK BOTH STATEMENTS AND CRASH
                 try
                 {
-                    if (Form1.horseOneActive == false)
+                    if (Form1.horseOneActive == false || Form1.horseOneInjured == true)
                     {
                         e.Graphics.FillRectangle(redBrush, horseOneInactiveBox);
                         horseOneBetInput.Enabled = false;
                     }
-                    if (Form1.horseTwoActive == false)
+                    if (Form1.horseTwoActive == false || Form1.horseTwoInjured == true)
                     {
                         e.Graphics.FillRectangle(redBrush, horseTwoInactiveBox);
                         horseTwoBetInput.Enabled = false;
                     }
-                    if (Form1.horseThreeActive == false)
+                    if (Form1.horseThreeActive == false || Form1.horseThreeInjured == true)
                     {
                         e.Graphics.FillRectangle(redBrush, horseThreeInactiveBox);
                         horseThreeBetInput.Enabled = false;

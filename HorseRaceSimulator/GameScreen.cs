@@ -52,11 +52,20 @@ namespace HorseRaceSimulator
             if (Form1.horseTwoActive == false) { horses[1].active = false; }
             if (Form1.horseThreeActive == false) { horses[2].active = false; }
 
+            // only run this code once
             if (Form1.firstMatch == true)
             {
-                if (Form1.horseOneInjured == false) { horses[0].injured = false; }
-                if (Form1.horseTwoInjured == false) { horses[1].injured = false; }
-                if (Form1.horseThreeInjured == false) { horses[2].injured = false; }
+                // on the first game, check if they had saved with an injured horse
+                if (Form1.horseOneInjured == true) { horses[0].injured = true; }
+                if (Form1.horseTwoInjured == true) { horses[1].injured = true; }
+                if (Form1.horseThreeInjured == true) { horses[2].injured = true; }
+
+                // set horses as uninjured
+                Form1.horseOneInjured = false;
+                Form1.horseTwoInjured = false;
+                Form1.horseThreeInjured = false;
+
+                // mark this as no longer being the first match on the session
                 Form1.firstMatch = false;
             }
 

@@ -20,41 +20,50 @@ namespace HorseRaceSimulator
 
         private void playButton_Click(object sender, EventArgs e)
         {
+            // Open XML file
+            XmlReader reader = XmlReader.Create("Resources/savedGame.xml");
+
+            // try to run and if it fails create a new save file
             try
             {
-                // Open XML file
-                XmlReader reader = XmlReader.Create("Resources/savedGame.xml");
-
                 // read XML file
                 while (reader.Read())
                 {
-                    // copy Player Information
-                    reader.ReadToFollowing("Player");
-                    Form1.moneyAmount = Convert.ToInt32(reader.GetAttribute("moneyAmount"));
+                    if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        // copy Player information
+                        string mA = reader.ReadString();
+                        Form1.moneyAmount = Convert.ToInt32(mA);
 
-                    // copy Horse information
-                    reader.ReadToFollowing("Horse");
-                    string h1A = reader.GetAttribute("horseOneActive");
-                    string h2A = reader.GetAttribute("horseTwoActive");
-                    string h3A = reader.GetAttribute("horseThreeActive");
-                    string h1I = reader.GetAttribute("horseOneInjured");
-                    string h2I = reader.GetAttribute("horseTwoInjured");
-                    string h3I = reader.GetAttribute("horseThreeInjured");
+                        // copy Horse information
+                        reader.ReadToFollowing("horseOneActive");
+                        string h1A = reader.ReadString();
+                        reader.ReadToNextSibling("horseTwoActive");
+                        string h2A = reader.ReadString();
+                        reader.ReadToNextSibling("horseThreeActive");
+                        string h3A = reader.ReadString();
+                        reader.ReadToNextSibling("horseOneInjured");
+                        string h1I = reader.ReadString();
+                        reader.ReadToNextSibling("horseTwoInjured");
+                        string h2I = reader.ReadString();
+                        reader.ReadToNextSibling("horseThreeInjured");
+                        string h3I = reader.ReadString();
 
-                    // convert to bool
-                    if (h1A == "true") { Form1.horseOneActive = true; }
-                    else { Form1.horseOneActive = false; }
-                    if (h2A == "true") { Form1.horseTwoActive = true; }
-                    else { Form1.horseTwoActive = false; }
-                    if (h3A == "true") { Form1.horseThreeActive = true; }
-                    else { Form1.horseThreeActive = false; }
+                        // convert to bool
+                        if (h1A == "true") { Form1.horseOneActive = true; }
+                        else { Form1.horseOneActive = false; }
+                        if (h2A == "true") { Form1.horseTwoActive = true; }
+                        else { Form1.horseTwoActive = false; }
+                        if (h3A == "true") { Form1.horseThreeActive = true; }
+                        else { Form1.horseThreeActive = false; }
 
-                    if (h1I == "true") { Form1.horseOneInjured = true; }
-                    else { Form1.horseOneInjured = false; }
-                    if (h2I == "true") { Form1.horseTwoInjured = true; }
-                    else { Form1.horseTwoInjured = false; }
-                    if (h3I == "true") { Form1.horseThreeInjured = true; }
-                    else { Form1.horseThreeInjured = false; }
+                        if (h1I == "true") { Form1.horseOneInjured = true; }
+                        else { Form1.horseOneInjured = false; }
+                        if (h2I == "true") { Form1.horseTwoInjured = true; }
+                        else { Form1.horseTwoInjured = false; }
+                        if (h3I == "true") { Form1.horseThreeInjured = true; }
+                        else { Form1.horseThreeInjured = false; }
+                    }
                 }
 
                 // stop reading
@@ -63,9 +72,11 @@ namespace HorseRaceSimulator
                 // Launch Menu Screen
                 Form1.ChangeScreen(this, new MenuScreen());
             }
-
             catch
             {
+                // stop reading
+                reader.Close();
+
                 newGameStart();
             }
         }
@@ -90,7 +101,7 @@ namespace HorseRaceSimulator
             writer.WriteStartElement("Save");
 
             // write Player conditions
-            writer.WriteStartElement("Player");
+            writer.WriteStartElement("player");
 
             #region player info
             // add info to Player
@@ -101,7 +112,7 @@ namespace HorseRaceSimulator
             writer.WriteEndElement();
 
             // write Horse conditions
-            writer.WriteStartElement("Horse");
+            writer.WriteStartElement("horse");
 
             #region horse info
             // add info to Horse
