@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace HorseRaceSimulator
 {
@@ -188,6 +189,93 @@ namespace HorseRaceSimulator
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            // Save game
+            // Create XML file
+            XmlWriter writer = XmlWriter.Create("Resources/savedGame.xml", null);
+
+            // create root element
+            writer.WriteStartElement("Save");
+
+            // write Player conditions
+            writer.WriteStartElement("player");
+
+            #region player info
+            // add info to Player
+            writer.WriteElementString("moneyAmount", $"{Form1.moneyAmount}");
+            #endregion
+
+            // finish writing Player
+            writer.WriteEndElement();
+
+            // write Horse conditions
+            writer.WriteStartElement("horse");
+
+            #region horse info
+            // add info to Horse
+            if (Form1.horseOneActive == true)
+            {
+                writer.WriteElementString("horseOneActive", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseOneActive", "false");
+            }
+
+            if (Form1.horseTwoActive == true)
+            {
+                writer.WriteElementString("horseTwoActive", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseTwoActive", "false");
+            }
+
+            if (Form1.horseThreeActive == true)
+            {
+                writer.WriteElementString("horseThreeActive", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseThreeActive", "false");
+            }
+
+            if (Form1.horseOneInjured == true)
+            {
+                writer.WriteElementString("horseOneInjured", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseOneInjured", "false");
+            }
+
+            if (Form1.horseTwoInjured == true)
+            {
+                writer.WriteElementString("horseTwoInjured", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseTwoInjured", "false");
+            }
+
+            if (Form1.horseThreeInjured == true)
+            {
+                writer.WriteElementString("horseThreeInjured", "true");
+            }
+            else
+            {
+                writer.WriteElementString("horseThreeInjured", "false");
+            }
+            #endregion
+
+            // finish writing Horse
+            writer.WriteEndElement();
+
+            // finish writing Save
+            writer.WriteEndElement();
+
+            // close file
+            writer.Close();
+
             // End program
             Application.Exit();
         }
