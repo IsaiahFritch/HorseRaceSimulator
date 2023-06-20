@@ -137,7 +137,7 @@
             this.moneyAmountLabel.ForeColor = System.Drawing.Color.Black;
             this.moneyAmountLabel.Location = new System.Drawing.Point(-1, -2);
             this.moneyAmountLabel.Name = "moneyAmountLabel";
-            this.moneyAmountLabel.Size = new System.Drawing.Size(153, 74);
+            this.moneyAmountLabel.Size = new System.Drawing.Size(134, 74);
             this.moneyAmountLabel.TabIndex = 7;
             this.moneyAmountLabel.Text = "Money";
             this.moneyAmountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -147,9 +147,9 @@
             this.moneyAmountUnderLabel.BackColor = System.Drawing.Color.Transparent;
             this.moneyAmountUnderLabel.Font = new System.Drawing.Font("MV Boli", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.moneyAmountUnderLabel.ForeColor = System.Drawing.Color.Silver;
-            this.moneyAmountUnderLabel.Location = new System.Drawing.Point(152, 111);
+            this.moneyAmountUnderLabel.Location = new System.Drawing.Point(161, 111);
             this.moneyAmountUnderLabel.Name = "moneyAmountUnderLabel";
-            this.moneyAmountUnderLabel.Size = new System.Drawing.Size(153, 74);
+            this.moneyAmountUnderLabel.Size = new System.Drawing.Size(134, 74);
             this.moneyAmountUnderLabel.TabIndex = 8;
             this.moneyAmountUnderLabel.Text = "Money";
             this.moneyAmountUnderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

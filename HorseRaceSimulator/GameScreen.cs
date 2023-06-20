@@ -145,6 +145,19 @@ namespace HorseRaceSimulator
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            // Instead of running game, run cut scene if only one horse is present
+            if (activeHorseCount == 1)
+            {
+                // end game
+                gameTimer.Enabled = false;
+
+                // set the page number
+                Form1.pageNumber = 21;
+
+                // Launch Cut Scene Screen
+                Form1.ChangeScreen(this, new CutSceneScreen());
+            }
+
             // Horse actions
             // set injured to zero
             injuredCount = 0;

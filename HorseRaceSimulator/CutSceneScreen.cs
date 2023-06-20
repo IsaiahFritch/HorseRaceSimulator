@@ -63,9 +63,25 @@ namespace HorseRaceSimulator
                     // draw scene
                     e.Graphics.FillRectangle(grayBrush, 50, 50, 1500, 800);
                     break;
+                #endregion
+
+                #region Single Horse Scene
+                case 21:
+                    // text
+                    outputLabel.Text = "Horse walking (epic)";
+
+                    // draw scene
+                    e.Graphics.FillRectangle(whiteBrush, 50, 50, 1500, 800);
+                    break;
+
+                case 22:
+                    // text
+                    outputLabel.Text = "Horse crossing finish line (epic)";
+
+                    // draw scene
+                    e.Graphics.FillRectangle(grayBrush, 50, 50, 1500, 800);
+                    break;
                     #endregion
-
-
             }
 
             // TODO DRAW BUTTONS
@@ -88,7 +104,7 @@ namespace HorseRaceSimulator
                     break;
                 #endregion
 
-                #region Opening Scene
+                #region Horse Stealing Scene
                 case 11:
                     // next page
                     Form1.pageNumber = 12;
@@ -161,6 +177,18 @@ namespace HorseRaceSimulator
 
                     }
 
+                    // Launch Menu Screen
+                    Form1.ChangeScreen(this, new MenuScreen());
+                    break;
+                #endregion
+
+                #region Single Horse Scene
+                case 21:
+                    // next page
+                    Form1.pageNumber = 22;
+                    break;
+
+                case 22:
                     // Launch Menu Screen
                     Form1.ChangeScreen(this, new MenuScreen());
                     break;

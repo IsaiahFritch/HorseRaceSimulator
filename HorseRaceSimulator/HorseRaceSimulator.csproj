@@ -191,5 +191,8 @@
   <ItemGroup>
     <None Include="Resources\HRSattendeeOneBack.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\employeeXML.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

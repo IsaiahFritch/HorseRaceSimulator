@@ -77,13 +77,13 @@ namespace HorseRaceSimulator
                 // stop reading
                 reader.Close();
 
-                newGameStart();
+                startNewGame();
             }
         }
 
         private void newSaveButton_Click(object sender, EventArgs e)
         {
-            newGameStart();
+            startNewGame();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -92,7 +92,7 @@ namespace HorseRaceSimulator
             Application.Exit();
         }
 
-        public void newGameStart()
+        public void startNewGame()
         {
             // Create XML file
             XmlWriter writer = XmlWriter.Create("Resources/savedGame.xml", null);

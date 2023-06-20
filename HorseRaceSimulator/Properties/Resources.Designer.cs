@@ -61,6 +61,15 @@ namespace HorseRaceSimulator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;Employees&gt;&lt;Employee&gt;&lt;id&gt;3&lt;/id&gt;&lt;firstName /&gt;&lt;lastName /&gt;&lt;date /&gt;&lt;salary /&gt;&lt;/Employee&gt;&lt;Employee&gt;&lt;id&gt;4&lt;/id&gt;&lt;firstName /&gt;&lt;lastName /&gt;&lt;date /&gt;&lt;salary /&gt;&lt;/Employee&gt;&lt;/Employees&gt;.
+        /// </summary>
+        internal static string employeeXML {
+            get {
+                return ResourceManager.GetString("employeeXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap HRSattendeeOne {

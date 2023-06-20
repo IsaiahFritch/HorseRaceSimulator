@@ -239,32 +239,66 @@ namespace HorseRaceSimulator
                 writer.WriteElementString("horseThreeActive", "false");
             }
 
-            if (Form1.horseOneInjured == true)
+            #region code that needs to be simplified
+            if (Form1.firstMatch == true)
             {
-                writer.WriteElementString("horseOneInjured", "true");
-            }
-            else
-            {
-                writer.WriteElementString("horseOneInjured", "false");
-            }
+                if (Form1.horseOneInjured == true)
+                {
+                    writer.WriteElementString("horseOneInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseOneInjured", "false");
+                }
 
-            if (Form1.horseTwoInjured == true)
-            {
-                writer.WriteElementString("horseTwoInjured", "true");
-            }
-            else
-            {
-                writer.WriteElementString("horseTwoInjured", "false");
-            }
+                if (Form1.horseTwoInjured == true)
+                {
+                    writer.WriteElementString("horseTwoInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseTwoInjured", "false");
+                }
 
-            if (Form1.horseThreeInjured == true)
-            {
-                writer.WriteElementString("horseThreeInjured", "true");
+                if (Form1.horseThreeInjured == true)
+                {
+                    writer.WriteElementString("horseThreeInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseThreeInjured", "false");
+                }
             }
             else
             {
-                writer.WriteElementString("horseThreeInjured", "false");
+                if (GameScreen.horses[0].injured == true)
+                {
+                    writer.WriteElementString("horseOneInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseOneInjured", "false");
+                }
+
+                if (GameScreen.horses[1].injured == true)
+                {
+                    writer.WriteElementString("horseTwoInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseTwoInjured", "false");
+                }
+
+                if (GameScreen.horses[2].injured == true)
+                {
+                    writer.WriteElementString("horseThreeInjured", "true");
+                }
+                else
+                {
+                    writer.WriteElementString("horseThreeInjured", "false");
+                }
             }
+            #endregion
             #endregion
 
             // finish writing Horse
