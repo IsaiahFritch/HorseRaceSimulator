@@ -160,6 +160,24 @@ namespace HorseRaceSimulator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream HRSbuttonSound {
+            get {
+                return ResourceManager.GetStream("HRSbuttonSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream HRSexitSound {
+            get {
+                return ResourceManager.GetStream("HRSexitSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap HRSgameScreenBackground {
@@ -286,6 +304,15 @@ namespace HorseRaceSimulator.Properties {
             get {
                 object obj = ResourceManager.GetObject("HRSshopButtonSelected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream HRSstartSound {
+            get {
+                return ResourceManager.GetStream("HRSstartSound", resourceCulture);
             }
         }
         
