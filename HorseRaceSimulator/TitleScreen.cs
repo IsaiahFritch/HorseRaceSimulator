@@ -22,6 +22,10 @@ namespace HorseRaceSimulator
 
         private void playButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSstartSound.wav");
+            startSound.Play();
+
             // Open XML file
             XmlReader reader = XmlReader.Create("Resources/savedGame.xml");
 
@@ -85,11 +89,19 @@ namespace HorseRaceSimulator
 
         private void newSaveButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSstartSound.wav");
+            startSound.Play();
+
             startNewGame();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSexitSound.wav");
+            startSound.Play();
+
             // End program
             Application.Exit();
         }

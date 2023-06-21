@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Media;
 
 namespace HorseRaceSimulator
 {
@@ -90,6 +92,11 @@ namespace HorseRaceSimulator
 
         private void nextButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSbuttonSound.wav");
+            startSound.Play();
+
+            // do whaterever the page needs done
             switch (Form1.pageNumber)
             {
                 #region Opening Scene

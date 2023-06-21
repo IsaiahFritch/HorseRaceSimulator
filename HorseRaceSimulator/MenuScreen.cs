@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
+using System.Media;
 
 namespace HorseRaceSimulator
 {
@@ -189,6 +191,10 @@ namespace HorseRaceSimulator
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSexitSound.wav");
+            startSound.Play();
+
             // Save game
             // Create XML file
             XmlWriter writer = XmlWriter.Create("Resources/savedGame.xml", null);
@@ -340,6 +346,10 @@ namespace HorseRaceSimulator
 
         private void shopButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSbuttonSound.wav");
+            startSound.Play();
+
             // toggle bewtween selected image and normal when clicked
             if (shopClicked == false)
             {
@@ -380,6 +390,10 @@ namespace HorseRaceSimulator
 
         private void betsButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSbuttonSound.wav");
+            startSound.Play();
+
             // toggle bewtween selected image and normal when clicked
             if (betsClicked == false)
             {
@@ -412,6 +426,10 @@ namespace HorseRaceSimulator
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSstartSound.wav");
+            startSound.Play();
+
             // Record the bets
             // get values from bet screen
             try
@@ -475,6 +493,10 @@ namespace HorseRaceSimulator
 
         private void stealButton_Click(object sender, EventArgs e)
         {
+            // play sound
+            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSbuttonSound.wav");
+            startSound.Play();
+
             // set the page number
             Form1.pageNumber = 11;
 
