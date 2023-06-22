@@ -34,7 +34,7 @@ namespace HorseRaceSimulator
                 #region Opening Scene
                 case 1:
                     // text
-                    outputLabel.Text = "FIRST PAGE TEST TEXT";
+                    outputLabel.Text = "Drunk homeless man stumbles into an open field";
 
                     // draw scene
                     e.Graphics.FillRectangle(whiteBrush, 50, 50, 1500, 800); 
@@ -42,7 +42,7 @@ namespace HorseRaceSimulator
 
                 case 2:
                     // text
-                    outputLabel.Text = "SECOND PAGE TEST TEXT";
+                    outputLabel.Text = "Horses race here";
 
                     // draw scene
                     e.Graphics.FillRectangle(grayBrush, 50, 50, 1500, 800);
@@ -87,7 +87,6 @@ namespace HorseRaceSimulator
             }
 
             // TODO DRAW BUTTONS
-
         }
 
         private void nextButton_Click(object sender, EventArgs e)
