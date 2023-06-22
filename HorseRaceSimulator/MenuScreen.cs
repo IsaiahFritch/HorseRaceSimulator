@@ -43,9 +43,9 @@ namespace HorseRaceSimulator
 
         // all rough guesses for size and location
         Rectangle betMenuBox = new Rectangle(295, 110, 1330, 590);
-        Rectangle horseOneInactiveBox = new Rectangle(320, 135, 300, 300);
-        Rectangle horseTwoInactiveBox = new Rectangle(660, 135, 300, 300);
-        Rectangle horseThreeInactiveBox = new Rectangle(1005, 135, 300, 300);
+        Rectangle horseOneInactiveBox = new Rectangle(410, 135, 300, 300);
+        Rectangle horseTwoInactiveBox = new Rectangle(820, 135, 300, 300);
+        Rectangle horseThreeInactiveBox = new Rectangle(1230, 135, 300, 300);
 
         #endregion
 
