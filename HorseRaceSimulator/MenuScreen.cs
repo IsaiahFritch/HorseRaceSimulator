@@ -426,10 +426,6 @@ namespace HorseRaceSimulator
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            // play sound
-            System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSstartSound.wav");
-            startSound.Play();
-
             // Record the bets
             // get values from bet screen
             try
@@ -459,6 +455,10 @@ namespace HorseRaceSimulator
 
             if (Form1.moneyAmount >= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets))
             {
+                // play sound
+                System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSstartSound.wav");
+                startSound.Play();
+
                 // remove bet money from total amount if there is enough money
                 Form1.moneyAmount -= (Form1.horseOneBets + Form1.horseTwoBets + Form1.horseThreeBets);
 
@@ -467,6 +467,10 @@ namespace HorseRaceSimulator
             }
             else
             {
+                // play sound
+                System.Media.SoundPlayer startSound = new System.Media.SoundPlayer(Application.StartupPath + "/Resources/HRSbuttonSound.wav");
+                startSound.Play();
+
                 // display "insufficient funds" error
                 // reset all betting fields
                 horseOneBetInput.Text = "0";
